@@ -5,6 +5,7 @@ import TabNavigator from "./components/tabNavigator";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigator from "./components/screenNavigator";
 
+
 export default function App() {
   const [isAppReady, setAppReady] = useState(false);
   const [hasSeenSlides, setHasSeenSlides] = useState(false);

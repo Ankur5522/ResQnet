@@ -7,16 +7,16 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useGetWeather } from "../hooks/useGetWeather";
+import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import * as Location from "expo-location";
+import { weatherType } from "../dataFile/weatherData";
 
 const Weather = () => {
-    const [loading, error, weather] = useGetWeather();
-    console.log('weatherData: ',loading,error,"hellp", weather.list)
   const [userLocation, setUserLocation] = useState(null);
   const [locationName, setLocationName] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(null);
+  const [weatherData, setWeatherData] = useState([]);
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -32,6 +32,13 @@ const Weather = () => {
           if (reverseGeocode && reverseGeocode[0]) {
             setLocationName(reverseGeocode[0]);
           }
+
+          const res = await fetch(
+            `http://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=ac69d68af11f67b985ed4d0c3a658be9&units=metric`
+          );
+          const data = await res.json();
+          setWeatherData(data);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching location:", error);
@@ -40,6 +47,14 @@ const Weather = () => {
 
     fetchLocation();
   }, [status]);
+  if (loading) {
+    return <Text>Data being Fetch</Text>;
+  }
+  weatherParameters = weatherData?.list[0];
+  const {
+    main: { temp, feels_like, temp_max, temp_min },
+    weather,
+  } = weatherParameters;
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -63,9 +78,31 @@ const Weather = () => {
         <MaterialIcons name="notifications-on" size={28} color="black" />
       </View>
       <ScrollView>
-        <View style={{alignItems: "center"}}>
+        <View style={{ alignItems: "center" }}>
           <View style={styles.weatherContainer}>
-            <Text>Hiii</Text>
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.tempStyles}>
+                {`${temp.toFixed(1)}°`}
+                <Text style={{ fontSize: 40 }}>c</Text>
+              </Text>
+              <Text style={{ color: "white", fontSize: 35 }}>
+                {weather[0].description}
+              </Text>
+            </View>
+            <Feather
+              name={weatherType[weather[0].main]?.icon}
+              size={100}
+              color="white"
+            />
+          </View>
+          <View style={styles.secondContainer}></View>
+          <View style={{width:"92%"}}>
+            <Text style={{ fontSize: 22, fontWeight: 900, marginTop: 6, marginLeft: 20 }}>
+              Early Warnings
+            </Text>
+            <View>
+                
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -88,11 +125,35 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   weatherContainer: {
-    height: 192,
+    height: 200,
     width: "92%",
     justifyContent: "center",
-    alignItems: 'center',
-    backgroundColor: 'rgba(83, 137, 242, 0.86)',
-    borderRadius: 30
+    alignItems: "center",
+    backgroundColor: "rgba(83, 137, 242, 0.86)",
+    borderRadius: 30,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 30,
+    paddingRight: 50,
+    marginBottom: 20,
+  },
+  tempStyles: {
+    color: "black",
+    fontSize: 35,
+    fontWeight: "500",
+    color: "white",
+  },
+  feels: {
+    color: "black",
+    fontSize: 30,
+  },
+  secondContainer: {
+    height: 180,
+    width: "92%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(83, 137, 242, 0.86)",
+    borderRadius: 30,
   },
 });
