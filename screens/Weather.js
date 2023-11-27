@@ -6,6 +6,7 @@ import {
   StatusBar,
   Platform,
   ScrollView,
+  ImageBackground
 } from "react-native";
 import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import * as Location from "expo-location";
@@ -17,6 +18,7 @@ const Weather = () => {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(null);
   const [weatherData, setWeatherData] = useState([]);
+
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -79,13 +81,14 @@ const Weather = () => {
       </View>
       <ScrollView>
         <View style={{ alignItems: "center" }}>
+          <ImageBackground source={require('../assets/wbg.png')} resizeMode="cover">
           <View style={styles.weatherContainer}>
             <View style={{ alignItems: "center" }}>
               <Text style={styles.tempStyles}>
                 {`${temp.toFixed(1)}°`}
                 <Text style={{ fontSize: 40 }}>c</Text>
               </Text>
-              <Text style={{ color: "white", fontSize: 35 }}>
+              <Text style={{ color: "white", fontSize: 27 }}>
                 {weather[0].description}
               </Text>
             </View>
@@ -95,6 +98,7 @@ const Weather = () => {
               color="white"
             />
           </View>
+          </ImageBackground>
           <View style={styles.secondContainer}></View>
           <View style={{width:"92%"}}>
             <Text style={{ fontSize: 22, fontWeight: 900, marginTop: 6, marginLeft: 20 }}>
@@ -121,26 +125,23 @@ const styles = StyleSheet.create({
   topBar: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 23,
     padding: 16,
+    paddingTop: 10
   },
   weatherContainer: {
     height: 200,
     width: "92%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(83, 137, 242, 0.86)",
     borderRadius: 30,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingLeft: 30,
-    paddingRight: 50,
+    justifyContent: "space-evenly",
     marginBottom: 20,
   },
   tempStyles: {
     color: "black",
-    fontSize: 35,
+    fontSize: 47,
     fontWeight: "500",
     color: "white",
   },

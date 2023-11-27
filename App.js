@@ -5,7 +5,6 @@ import TabNavigator from "./components/tabNavigator";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigator from "./components/screenNavigator";
 
-
 export default function App() {
   const [isAppReady, setAppReady] = useState(false);
   const [hasSeenSlides, setHasSeenSlides] = useState(false);
@@ -37,10 +36,11 @@ export default function App() {
   return (
     <NavigationContainer>
       {hasSeenSlides ? (
-        <TabNavigator />
+      <TabNavigator />
       ) : (
-        <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
-      )}
+      <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
+     )}
+     
     </NavigationContainer>
   );
 }

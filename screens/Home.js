@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
   topBar: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 23,
     padding: 16,
+    paddingTop: 10
   },
   mainContainer: {
     height: 340,
@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
   optionsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     marginTop: 20,
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
   },
 });
