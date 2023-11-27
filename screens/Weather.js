@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   tempStyles: {
     color: "black",
-    fontSize: 35,
+    fontSize: 47,
     fontWeight: "500",
     color: "white",
   },

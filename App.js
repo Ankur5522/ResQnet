@@ -38,8 +38,9 @@ export default function App() {
       {!hasSeenSlides ? (
         <TabNavigator />
       ) : (
-        <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
-      )}
+      <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
+     )}
+     
     </NavigationContainer>
   );
 }

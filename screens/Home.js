@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   optionsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     marginTop: 20,
     // paddingHorizontal: 4,
   },
