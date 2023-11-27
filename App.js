@@ -35,8 +35,8 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      {hasSeenSlides ? (
-      <TabNavigator />
+      {!hasSeenSlides ? (
+        <TabNavigator />
       ) : (
       <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
      )}
