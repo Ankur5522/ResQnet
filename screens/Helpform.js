@@ -23,6 +23,7 @@ const Helpform = ({route}) =>{
       const newformData = {...res, ...formData}
       const response = await signUp(newformData)
       await AsyncStorage.setItem('profile',JSON.stringify(newformData))
+      navigation.navigate('Login')
     }
     return(
         <View style={styles.container}>

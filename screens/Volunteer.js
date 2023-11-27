@@ -6,8 +6,13 @@ import age from '../assets/age.png';
 import secure from '../assets/secure.png';
 import {Picker} from '@react-native-picker/picker';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import { signUp } from '../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/core';
 
-const Helpform =() =>{
+const Volunteer =({route}) =>{
+    const res = route.params?.newRes
+    const navigation = useNavigation()
     const [formData, setFormData] = useState({
         gender: '',
         age: '',
@@ -24,6 +29,12 @@ const Helpform =() =>{
         {key:'6',value:'Report Covering'},
 
     ]
+    const handleSignup = async () => {
+      const newformData = {...res, ...formData, skills: selected}
+      const response = await signUp(newformData)
+      navigation.navigate('Login')
+      await AsyncStorage.setItem('profile',JSON.stringify(newformData))
+    }
       return(
         <View style={styles.container}>
             <View style={styles.container1}>
@@ -99,7 +110,7 @@ const Helpform =() =>{
                         onChangeText={(text) => setFormData({ ...formData, description: text })}
                         style={styles.textInput}
                     />
-                    <TouchableOpacity style={styles.loginButton}//onPress={handleSignup}
+                    <TouchableOpacity style={styles.loginButton} onPress={handleSignup}
                     >
                         <Text style={styles.loginButtonText} >Sign Up</Text>
                     </TouchableOpacity>
@@ -108,7 +119,7 @@ const Helpform =() =>{
         </View>
     )
 }
-export default Helpform;
+export default Volunteer;
 
 const windowWidth=Dimensions.get('window').width;
 const windowHeight=Dimensions.get('window').height;

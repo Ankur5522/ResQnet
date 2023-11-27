@@ -6,6 +6,8 @@ import organization from '../assets/organization.png';
 import locate from '../assets/locate.png'
 import {Picker} from '@react-native-picker/picker';
 import {signupOrganisation} from "../api"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/core';
 
 const Organizationform = ({route}) =>{
     const res = route.params?.newRes
@@ -17,9 +19,12 @@ const Organizationform = ({route}) =>{
         state:'',
         description:''
       });
+      const navigation = useNavigation()
      const handleSignup = async () => {
         const newformData = {...res, ...formData}
         const response = await signupOrganisation(newformData)
+        await AsyncStorage('orgProfile',response)
+        navigation.navigate('Login')
      }
     return(
         <View style={styles.container}>

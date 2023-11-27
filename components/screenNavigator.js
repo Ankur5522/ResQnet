@@ -7,6 +7,8 @@ import Home from "../screens/Home";
 import Options from "../screens/Options";
 import Helpform from "../screens/Helpform";
 import Organizationform from "../screens/Organizationform";
+import Volunteer from "../screens/Volunteer";
+import TabNavigator from "./tabNavigator";
 
 const Stack = createStackNavigator();
 
@@ -45,6 +47,20 @@ const AppNavigator = ({ handleOnboardingComplete }) => {
       <Stack.Screen
         name="organisation"
         component={Organizationform}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="volunteer"
+        component={Volunteer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={TabNavigator}
         options={{
           headerShown: false,
         }}

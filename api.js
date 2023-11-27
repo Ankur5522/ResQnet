@@ -38,9 +38,9 @@ export const signupOrganisation = async (formData) => {
 
   export const logIn = async (formData) => {
     try {
-      console.log(formData)
       const response = await API.post('/user/login', formData);
-      console.log('Signin successful:', response.data);
+      data = response?.data
+      return data;
     } catch (error) {
       console.error('Signin error:', error);
     }

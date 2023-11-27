@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
     enum: ['volunteer', 'help'],
     required: true,
   },
+  skills: {
+    type: Array,
+  }
 });
 
 const User = mongoose.model('User', userSchema);

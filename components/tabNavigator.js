@@ -1,14 +1,18 @@
 import React from "react";
 import { View, Text, Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
 import Community from "../screens/Community";
 import Weather from "../screens/Weather";
 import Home from "../screens/Home";
 import Organisations from "../screens/Organisations";
 import Profile from "../screens/Profile";
+import ChatScreen from "../screens/ChatScreen";
+import ChatNavigator from "./chatNavigator";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const TabNavigator = () => {
   return (
@@ -29,7 +33,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name={"Community"}
-        component={Community}
+        component={ChatNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <View

@@ -3,16 +3,12 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv"
-<<<<<<< Updated upstream
-import { continueSignup, login, signupOrganisation, signupUser } from "./controllers/user.js";
-=======
-import { login } from "./controllers/user.js";
 import { getNameByUserId } from "./controllers/user.js";
 import { getUserIdByEmail } from "./controllers/user.js";
 import chatroute from "./Routes/chatRoute.js";
 import messageroute from "./Routes/messageRoute.js";
+import { continueSignup, login, signupOrganisation, signupUser } from "./controllers/user.js";
 
->>>>>>> Stashed changes
 
 const app = express()
 dotenv.config()
@@ -62,7 +58,6 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
       
 router.get('/getNameByUserId/:_id', getNameByUserId);
 router.get('/getUserIdByEmail/:email', getUserIdByEmail);
-
 
 app.use("/resQnetServer/chats",chatroute);
 app.use("/resQnetServer/messages",messageroute);

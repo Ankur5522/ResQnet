@@ -42,7 +42,7 @@ const ChatScreen = () => {
 
   const fetchChatMessages = async (chatId) => {
     try {
-      const response = await fetch(`http://10.0.2.2:7000/resQnetServer/messages/${chatId}`);
+      const response = await fetch(`http://10.0.2.2:5000/resQnetServer/messages/${chatId}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -61,7 +61,7 @@ const ChatScreen = () => {
 
   const fetchSenderName = async (senderId) => {
     try {
-      const response = await fetch(`http://10.0.2.2:7000/resQnetServer/getNameByUserId/${senderId}`);
+      const response = await fetch(`http://10.0.2.2:5000/user/getNameByUserId/${senderId}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -76,7 +76,7 @@ const ChatScreen = () => {
 
   const handleSend = async () => {
     try {
-      const response = await fetch(`http://10.0.2.2:7000/resQnetServer/messages`, {
+      const response = await fetch(`http://10.0.2.2:5000/resQnetServer/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

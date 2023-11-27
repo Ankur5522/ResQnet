@@ -25,6 +25,11 @@ const Login = ({route }) => {
     });
   };
 
+  const handleLogin = async () => {
+    const response = await logIn(formData)
+    await AsyncStorage.setItem('profile',JSON.stringify(formData))
+    navigation.navigate('Main')
+  }
 
   return (
     <View style={styles.container}>
@@ -68,7 +73,7 @@ const Login = ({route }) => {
             <Text style={styles.link}>Forgot Password</Text>
           </View>
 
-          <TouchableOpacity style={styles.loginButton} onPress={() => logIn(formData)}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
           <Text style={styles.link2}>Or</Text>

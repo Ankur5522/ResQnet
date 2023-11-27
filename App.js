@@ -40,10 +40,10 @@ if (!isAppReady) {
 
 return (
   <NavigationContainer>
-    {(!hasSeenSlides ? (
+    {(hasSeenSlides ? (
       <TabNavigator />
     ) : (
-      <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
+      <AppNavigator />
     ))}
   </NavigationContainer>
 );

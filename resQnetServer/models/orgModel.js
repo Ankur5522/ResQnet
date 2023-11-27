@@ -37,7 +37,7 @@ const organisationSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-  },
+  }
 });
 
 const Organisation = mongoose.model('Organisation', organisationSchema);
