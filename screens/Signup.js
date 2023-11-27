@@ -7,7 +7,7 @@ import password from '../assets/password.png';
 import user from '../assets/user.png';
 import phone from '../assets/phone.png';
 import googleLogo from '../assets/google.png';
-import { signUp } from '../api';
+import { continueSignup } from '../api';
 import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
@@ -59,15 +59,15 @@ const Signup = () => {
         }
       };
     
-      const handleSignUp = () => {
+      const handleContinue = async () => {
         validateEmail();
         validatePassword();
         validateConfirmPassword();
         validatephoneNumber();
     
         if (!Object.values(errors).some((error) => error)) {
-          
-          signUp(formData).then(navigation.navigate('Login'));
+          const res = await continueSignup(formData)
+          navigation.navigate('Options',{res})
         }
       };
 
@@ -162,7 +162,7 @@ const Signup = () => {
           </View>
           
           <TouchableOpacity style={styles.loginButton}>
-            <Text style={styles.loginButtonText} onPress={handleSignUp}>SignUp</Text>
+            <Text style={styles.loginButtonText} onPress={handleContinue}>Continue</Text>
           </TouchableOpacity>
           <Text style={styles.link2}>Or</Text>
           <View style={styles.logoogle}>

@@ -5,14 +5,25 @@ import user from "../assets/user.png";
 import age from '../assets/age.png';
 import secure from '../assets/secure.png';
 import {Picker} from '@react-native-picker/picker';
+import { signUp } from '../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/core';
+import TabNavigator from '../components/tabNavigator';
 
-const Helpform = () =>{
+const Helpform = ({route}) =>{
+    const res = route.params?.newRes;
+    const navigation = useNavigation()
     const [formData, setFormData] = useState({
         gender: '',
         age: '',
-        adhar: '',
-        aboutyou:''
+        aadhar: '',
+        description:''
       });
+    const handleSignup = async () => {
+      const newformData = {...res, ...formData}
+      const response = await signUp(newformData)
+      await AsyncStorage.setItem('profile',JSON.stringify(newformData))
+    }
     return(
         <View style={styles.container}>
             <View style={styles.container1}>
@@ -67,9 +78,9 @@ const Helpform = () =>{
                     <Image source={secure} style={styles.inputIcon} /></View>
                     <TextInput
                         style={styles.input}
-                        placeholder="Adhar Number"
+                        placeholder="aadhar Number"
                         secureTextEntry={true}
-                        onChangeText={(text) => setFormData({ ...formData, adhar: text })}
+                        onChangeText={(text) => setFormData({ ...formData, aadhar: text })}
                     />
                     </View>
                     <View style={styles.inputWrapper}></View>
@@ -78,11 +89,11 @@ const Helpform = () =>{
                         multiline
                         numberOfLines={7} // Adjust the number of lines as needed
                         placeholder="About You"
-                        onChangeText={(text) => setFormData({ ...formData, aboutyou: text })}
+                        onChangeText={(text) => setFormData({ ...formData, description: text })}
                         style={styles.textInput}
                     />
-                    <TouchableOpacity style={styles.loginButton}>
-                        <Text style={styles.loginButtonText} >Save</Text>
+                    <TouchableOpacity style={styles.loginButton}onPress={handleSignup}>
+                        <Text style={styles.loginButtonText} >Sign Up</Text>
                     </TouchableOpacity>
             </View>
         </View>

@@ -5,18 +5,22 @@ import phone from '../assets/phone.png';
 import organization from '../assets/organization.png';
 import locate from '../assets/locate.png'
 import {Picker} from '@react-native-picker/picker';
+import {signupOrganisation} from "../api"
 
-const Organizationform = () =>{
+const Organizationform = ({route}) =>{
+    const res = route.params?.newRes
     const [formData, setFormData] = useState({
-        oname: '',
-        ophone: '',
-        otype: '',
-        add1:'',
-        add2:'',
+        orgName: '',
+        type: '',
+        address:'',
         city:'',
         state:'',
         description:''
       });
+     const handleSignup = async () => {
+        const newformData = {...res, ...formData}
+        const response = await signupOrganisation(newformData)
+     }
     return(
         <View style={styles.container}>
             <View style={styles.container1}>
@@ -35,20 +39,7 @@ const Organizationform = () =>{
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Organization Name"
-                                    onChangeText={(text) => setFormData({ ...formData, oname: text })}
-                                />
-                            </View>
-                            <View style={styles.inputWrapper}></View>
-
-                    </View>
-                    <View style={styles.wrapup}>
-                            <View style={styles.inputContainer}>
-                            <View style={styles.imageContainer}>
-                                <Image source={phone} style={styles.inputIcon} /></View>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Contact Number"
-                                    onChangeText={(text) => setFormData({ ...formData, ophone: text })}
+                                    onChangeText={(text) => setFormData({ ...formData, orgName: text })}
                                 />
                             </View>
                             <View style={styles.inputWrapper}></View>
@@ -61,8 +52,8 @@ const Organizationform = () =>{
                             <Picker
                                 placeholder='Organization Type'
                                 style={styles.inputpick}
-                                selectedValue={formData.otype}
-                                onValueChange={(itemValue, itemIndex) => setFormData({...formData,otype:itemValue})}
+                                selectedValue={formData.type}
+                                onValueChange={(itemValue, itemIndex) => setFormData({...formData,type:itemValue})}
                             >
                                 <Picker.Item label="Select type" value="" />
                                 <Picker.Item label="Police" value="police" />
@@ -83,21 +74,8 @@ const Organizationform = () =>{
                                 <Image source={locate} style={styles.inputIcon} /></View>
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Address Line 1"
-                                    onChangeText={(text) => setFormData({ ...formData, add1: text })}
-                                />
-                            </View>
-                            <View style={styles.inputWrapper}></View>
-
-                    </View>
-                    <View style={styles.wrapup}>
-                            <View style={styles.inputContainer}>
-                            <View style={styles.imageContainer}>
-                                <Image source={locate} style={styles.inputIcon} /></View>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Address Line 2"
-                                    onChangeText={(text) => setFormData({ ...formData, add2: text })}
+                                    placeholder="Address Line"
+                                    onChangeText={(text) => setFormData({ ...formData, address: text })}
                                 />
                             </View>
                             <View style={styles.inputWrapper}></View>
@@ -136,8 +114,8 @@ const Organizationform = () =>{
                         onChangeText={(text) => setFormData({ ...formData, description: text })}
                         style={styles.textInput}
                     />
-                    <TouchableOpacity style={styles.loginButton}>
-                        <Text style={styles.loginButtonText} >Save</Text>
+                    <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
+                        <Text style={styles.loginButtonText} >Sign Up</Text>
                     </TouchableOpacity>
                 </View>
             </View>

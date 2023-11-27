@@ -18,7 +18,7 @@ const organisationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  contactNumber: {
+  phoneNumber: {
     type: String,
     required: true,
   },

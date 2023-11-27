@@ -4,6 +4,9 @@ import Login from "../screens/login";
 import Signup from "../screens/signup";
 import Onboarding from "./onboarding";
 import Home from "../screens/Home";
+import Options from "../screens/Options";
+import Helpform from "../screens/Helpform";
+import Organizationform from "../screens/Organizationform";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +17,6 @@ const AppNavigator = ({ handleOnboardingComplete }) => {
       <Stack.Screen
         name="Login"
         component={Login}
-        initialParams={{ handleOnboardingComplete: handleOnboardingComplete }}
         options={{
           headerShown: false,
         }}
@@ -22,7 +24,27 @@ const AppNavigator = ({ handleOnboardingComplete }) => {
       <Stack.Screen
         name="Signup"
         component={Signup}
-        initialParams={{ handleOnboardingComplete: handleOnboardingComplete }}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Options"
+        component={Options}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="help"
+        component={Helpform}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="organisation"
+        component={Organizationform}
         options={{
           headerShown: false,
         }}

@@ -1,19 +1,19 @@
 import { StyleSheet, Text, View, Image ,Dimensions,TextInput,TouchableOpacity,TouchableHighlight} from 'react-native';
 import React,{useState} from 'react';
+import { useNavigation } from '@react-navigation/core';
 
-const Options = () =>{
-    const [isPressedHelp, setPressedHelp]=useState(false);
-    const [isPressedVolunteer, setPressedVolunteer]=useState(false);
-    const [isPressedO, setPressedO]=useState(false);
-    const handlePressHelp = () =>{
-        setPressedHelp(!isPressedHelp);
-    };
-    const handlePressVolunteer = () =>{
-        setPressedVolunteer(!isPressedVolunteer);
-    };
-    const handlePressO = () =>{
-        setPressedO(!isPressedO);
-    };
+const Options = ({route}) =>{
+    const res = route.params?.res;
+    const [userType, setUserType] = useState('')
+    const navigation = useNavigation()
+
+    const handlePress = (value) =>{
+        setUserType(value)
+        if(res) {
+            newRes = {...res,type: value}
+            navigation.navigate(`${value}`,{newRes})
+        }
+    }
     return(
         <View style={styles.container}>
             <View style={styles.container1}>
@@ -23,24 +23,24 @@ const Options = () =>{
                 <Text style={styles.option}>
                     Choose an option
                 </Text>
-                <TouchableOpacity style={[styles.button, isPressedHelp ? styles.pressedButton : null]}
-                    onPress={handlePressHelp}
+                <TouchableOpacity style={[styles.button, userType == 'help' ? styles.pressedButton : null]}
+                    onPress={()=> {handlePress('help')}}
                 >
-                    <Text style={[styles.buttontext,isPressedHelp ? styles.pressedText : null]}>
+                    <Text style={[styles.buttontext,userType == 'help' ? styles.pressedText : null]}>
                         I need Help
                     </Text>
                 </TouchableOpacity >
-                <TouchableOpacity style={[styles.button, isPressedVolunteer ? styles.pressedButton : null]}
-                    onPress={handlePressVolunteer}
+                <TouchableOpacity style={[styles.button, userType === 'volunteer' ? styles.pressedButton : null]}
+                    onPress={()=> {handlePress('volunteer')}}
                 >
-                    <Text style={[styles.buttontext,isPressedVolunteer ? styles.pressedText : null]}>
+                    <Text style={[styles.buttontext,userType === 'volunteer' ? styles.pressedText : null]}>
                         I want to Volunteer
                     </Text>
                 </TouchableOpacity >
-                <TouchableOpacity style={[styles.button, isPressedO ? styles.pressedButton : null]}
-                    onPress={handlePressO}
+                <TouchableOpacity style={[styles.button, userType === 'organisation' ? styles.pressedButton : null]}
+                    onPress={()=> {handlePress('organisation')}}
                 >
-                    <Text style={[styles.buttontext,isPressedO ? styles.pressedText : null]}>
+                    <Text style={[styles.buttontext,userType === 'organisation' ? styles.pressedText : null]}>
                         We are an Organization
                     </Text>
                 </TouchableOpacity >

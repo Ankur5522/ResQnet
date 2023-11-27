@@ -6,6 +6,7 @@ import passwordIcon from '../assets/password.png';
 import googleLogo from '../assets/google.png';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { logIn } from '../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({route }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +14,6 @@ const Login = ({route }) => {
     password: '',
   });
   const { email, password } = formData;
-  const handleOnboardingComplete = route.params?.handleOnboardingComplete;
   const navigation = useNavigation();
 
   const handleChange = (name, value) => {
@@ -23,12 +23,6 @@ const Login = ({route }) => {
     });
   };
 
-  useEffect(() => {
-    // Check if handleOnboardingComplete is a function before calling it
-    if (typeof handleOnboardingComplete === 'function') {
-      handleOnboardingComplete();
-    }
-  }, [handleOnboardingComplete]);
 
   return (
     <View style={styles.container}>

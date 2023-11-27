@@ -16,11 +16,34 @@ export const login = async (req, res) => {
     }
 }
 
-export const signupUser = async (req, res) => {
+
+
+export const continueSignup = async (req, res) => {
     const {
         email,
         password,
         confirmPassword,
+        name,
+        phoneNumber
+    } = req.body;
+
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+        res.status(200).json({
+            name,email,phoneNumber,password
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Something went wrong' });
+    }
+}
+export const signupUser = async (req, res) => {
+    const {
+        email,
+        password,
         name,
         phoneNumber,
         gender,
@@ -29,17 +52,8 @@ export const signupUser = async (req, res) => {
         Description,
         type
     } = req.body;
-
+    console.log(req.body)
     try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-
-        if (password !== confirmPassword) {
-            return res.status(400).json({ message: "Passwords don't match" });
-        }
-
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const userData = await User.create({
@@ -58,6 +72,8 @@ export const signupUser = async (req, res) => {
             name: userData.name,
             description: userData.Description,
             type: userData.type,
+            email: userData.email,
+            phoneNumber: userData.phoneNumber,
         });
     } catch (error) {
         console.error(error);
@@ -69,10 +85,9 @@ export const signupOrganisation = async (req, res) => {
     const {
         email,
         password,
-        confirmPassword,
         name,
         orgName,
-        contactNumber,
+        phoneNumber,
         type,
         address,
         city,
@@ -81,15 +96,6 @@ export const signupOrganisation = async (req, res) => {
     } = req.body;
 
     try {
-        const existingOrganisation = await Organisation.findOne({ email });
-        if (existingOrganisation) {
-            return res.status(400).json({ message: "Organisation already exists" });
-        }
-
-        if (password !== confirmPassword) {
-            return res.status(400).json({ message: "Passwords don't match" });
-        }
-
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const organisationData = await Organisation.create({
@@ -97,7 +103,7 @@ export const signupOrganisation = async (req, res) => {
             password: hashedPassword,
             name,
             orgName,
-            contactNumber,
+            phoneNumber,
             type,
             address,
             city,
@@ -108,7 +114,7 @@ export const signupOrganisation = async (req, res) => {
         res.status(200).json({
             name: organisationData.name,
             orgName: organisationData.orgName,
-            contactNumber: organisationData.contactNumber,
+            phoneNumber: organisationData.phoneNumber,
             type: organisationData.type,
             address: organisationData.address,
             city: organisationData.city,

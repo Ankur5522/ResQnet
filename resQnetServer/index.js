@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv"
-import { login } from "./controllers/user.js";
+import { continueSignup, login, signupOrganisation, signupUser } from "./controllers/user.js";
 
 const app = express()
 dotenv.config()
@@ -15,7 +15,9 @@ app.use(cors())
 const router = express.Router()
 
 router.post('/login', login);
-router.post('/signup/user',)
+router.post('/continue', continueSignup);
+router.post('/signup/user',signupUser)
+router.post('/signup/organisation',signupOrganisation)
 
 app.use('/user', router);
 

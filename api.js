@@ -6,13 +6,35 @@ const API = axios.create({
 })
 export const signUp = async (formData) => {
     try {
-      const response = await API.post('/user/register', formData);
-      console.log('Signup successful:', response.data);
-      AsyncStorage.setItem('hasSeenSlides', 'true');
+      const response = await API.post('/user/signup/user', formData);
+      const data = response.data
+      console.log(data)
+      return data;
     } catch (error) {
       console.error('Signup error:', error);
     }
   };
+
+export const signupOrganisation = async (formData) => {
+    try {
+      const response = await API.post('/user/signup/organisation', formData);
+      const data = response.data
+      console.log(data)
+      return data;
+    } catch (error) {
+      console.error('Signup error:', error);
+    }
+  };
+
+  export const continueSignup = async (formData) => {
+    try {
+      const response = await API.post('/user/continue', formData);
+      const data = response.data
+      return data;
+    } catch (error) {
+      console.error('error: ', error)
+    }
+  }
 
   export const logIn = async (formData) => {
     try {
