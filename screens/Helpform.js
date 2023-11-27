@@ -9,7 +9,8 @@ const Helpform = () =>{
     const [formData, setFormData] = useState({
         gender: '',
         age: '',
-        adhar: ''
+        adhar: '',
+        aboutyou:''
       });
     return(
         <View style={styles.container}>
@@ -63,6 +64,13 @@ const Helpform = () =>{
                     </View>
                     <View style={styles.inputWrapper}></View>
                     </View>
+                    <TextInput
+                        multiline
+                        numberOfLines={7} // Adjust the number of lines as needed
+                        placeholder="About You"
+                        onChangeText={(text) => setFormData({ ...formData, aboutyou: text })}
+                        style={styles.textInput}
+                    />
                     <TouchableOpacity style={styles.loginButton}>
                         <Text style={styles.loginButtonText} >Save</Text>
                     </TouchableOpacity>
@@ -117,18 +125,18 @@ const styles=StyleSheet.create({
       formgroup:
       {
       display:'flex',
-      flexDirection:'column'
+      flexDirection:'column',
+      marginLeft:'7%',
+      marginRight:'7%'
       },
       inputContainer: {
         display:'flex',
         flexDirection: 'row',
         marginBottom: 2,
         padding:2,
-        marginLeft:'5%',
         borderBottomColor:'#919696',
         borderBottomWidth:1.4,
         height:50,
-        marginRight:'5%'
       },
       input: {
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -159,8 +167,8 @@ const styles=StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal:20,
         marginTop:'15%',
-        marginLeft:'10%',
-        marginRight:'10%'
+        marginLeft:'5%',
+        marginRight:'5%'
       },
       loginButtonText: {
         color: '#fff',
@@ -168,5 +176,11 @@ const styles=StyleSheet.create({
         textAlign: 'center',
         fontWeight:'600',
         letterSpacing:0.7
+      },
+      textInput:{
+        borderColor:"#919696",
+        borderWidth:1,
+        borderRadius:21,
+        padding:10
       }
 })
