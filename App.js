@@ -35,13 +35,13 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <Helpform />
-    {//  {!hasSeenSlides ? (
-    //    <TabNavigator />
-    //  ) : (
-    //  <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
-    // )}
-    }
+      {/* <Helpform /> */}
+      {!hasSeenSlides ? (
+        <TabNavigator />
+      ) : (
+      <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
+     )}
+    
     </NavigationContainer>
 
   );
