@@ -4,65 +4,48 @@ import SplashScreen from "./components/splashScreen";
 import TabNavigator from "./components/tabNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppNavigator from "./components/screenNavigator";
-
+import Volunteer from "./screens/Volunteer.js";
 export default function App() {
-    const [isAppReady, setAppReady] = useState(false);
-    const [hasSeenSlides, setHasSeenSlides] = useState(false);
+  const [isAppReady, setAppReady] = useState(false);
+  const [hasSeenSlides, setHasSeenSlides] = useState(false);
 
-    useEffect(() => {
-        async function checkSignup() {
-          const profile = await AsyncStorage.getItem("profile");
-          if(profile) {
-            setHasSeenSlides(true)
-          }
-        }
-        checkSignup()
-        setTimeout(() => {
-            setAppReady(true);
-        }, 3000);
-    }, []);
-
-    if (!isAppReady) {
-        return <SplashScreen />;
+  useEffect(() => {
+    async function checkSignup() {
+      const profile = await AsyncStorage.getItem("profile");
+      if (profile) {
+        setHasSeenSlides(true)
+      }
     }
-
-<<<<<<< Updated upstream
-    return (
-        <NavigationContainer>
-            {!hasSeenSlides ? (
-                <TabNavigator />
-            ) : (
-                <AppNavigator />
-            )}
-        </NavigationContainer>
-    );
-=======
-    checkIntroSlides();
-
+    checkSignup()
     setTimeout(() => {
       setAppReady(true);
     }, 3000);
   }, []);
 
-  const handleOnboardingComplete = () => {
-    // Mark the slides as seen
-    AsyncStorage.setItem('hasSeenSlides', 'true');
-    setHasSeenSlides(true);
-  };
-
   if (!isAppReady) {
     return <SplashScreen />;
   }
+
+
+
+const handleOnboardingComplete = () => {
+  // Mark the slides as seen
+  AsyncStorage.setItem('hasSeenSlides', 'true');
+  setHasSeenSlides(true);
+};
+
+if (!isAppReady) {
+  return <SplashScreen />;
+}
+
+return (
+  <NavigationContainer>
+    {(!hasSeenSlides ? (
+      <TabNavigator />
+    ) : (
+      <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
+    ))}
+  </NavigationContainer>
+);
   
-  return (
-    <NavigationContainer>
-      {(!hasSeenSlides ? (
-        <TabNavigator />
-      ) : (
-        <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
-      ))}
-    </NavigationContainer>
-  );
-  
->>>>>>> Stashed changes
 }
