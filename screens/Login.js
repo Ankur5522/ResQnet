@@ -14,6 +14,11 @@ const Login = ({route }) => {
     password: '',
   });
   const { email, password } = formData;
+<<<<<<< Updated upstream
+=======
+
+  const handleOnboardingComplete = route.params?.handleOnboardingComplete;
+>>>>>>> Stashed changes
   const navigation = useNavigation();
 
   const handleChange = (name, value) => {

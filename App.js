@@ -26,6 +26,7 @@ export default function App() {
         return <SplashScreen />;
     }
 
+<<<<<<< Updated upstream
     return (
         <NavigationContainer>
             {!hasSeenSlides ? (
@@ -35,4 +36,33 @@ export default function App() {
             )}
         </NavigationContainer>
     );
+=======
+    checkIntroSlides();
+
+    setTimeout(() => {
+      setAppReady(true);
+    }, 3000);
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    // Mark the slides as seen
+    AsyncStorage.setItem('hasSeenSlides', 'true');
+    setHasSeenSlides(true);
+  };
+
+  if (!isAppReady) {
+    return <SplashScreen />;
+  }
+  
+  return (
+    <NavigationContainer>
+      {(!hasSeenSlides ? (
+        <TabNavigator />
+      ) : (
+        <AppNavigator handleOnboardingComplete={handleOnboardingComplete} />
+      ))}
+    </NavigationContainer>
+  );
+  
+>>>>>>> Stashed changes
 }
