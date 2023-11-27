@@ -4,6 +4,7 @@ import logo from '../assets/logo.png';
 import user from "../assets/user.png";
 import age from '../assets/age.png';
 import secure from '../assets/secure.png';
+import {Picker} from '@react-native-picker/picker';
 
 const Helpform = () =>{
     const [formData, setFormData] = useState({
@@ -27,12 +28,23 @@ const Helpform = () =>{
                         <View style={styles.inputContainer}>
                             <View style={styles.imageContainer}>
                             <Image source={user} style={styles.inputIcon} /></View>
-                                <TextInput
+                            <Picker
+                                placeholder='Gender'
+                                style={styles.inputpick}
+                                selectedValue={formData.gender}
+                                onValueChange={(itemValue, itemIndex) => setFormData({...formData,gender:itemValue})}
+                            >
+                                <Picker.Item label="Select Gender" value="" />
+                                <Picker.Item label="Male" value="male" />
+                                <Picker.Item label="Female" value="female" />
+                                <Picker.Item label="I prefer not to say" value="other" />
+                            </Picker>
+                                {/* <TextInput
                                 style={styles.input}
                                 placeholder="Gender"
                                 placeholderTextColor="#585858"
                                 onChangeText={(text) => setFormData({ ...formData, gender: text })}
-                            />
+                            /> */}
                         <View style={styles.inputWrapper}></View>
                         </View>
                         
@@ -44,7 +56,6 @@ const Helpform = () =>{
                             <TextInput
                                 style={styles.input}
                                 placeholder="Age"
-                                placeholderTextColor="#585858"
                                 onChangeText={(text) => setFormData({ ...formData, age: text })}
                             />
                         </View>
@@ -57,7 +68,6 @@ const Helpform = () =>{
                     <TextInput
                         style={styles.input}
                         placeholder="Adhar Number"
-                        placeholderTextColor="#585858"
                         secureTextEntry={true}
                         onChangeText={(text) => setFormData({ ...formData, adhar: text })}
                     />
@@ -129,26 +139,23 @@ const styles=StyleSheet.create({
       marginLeft:'7%',
       marginRight:'7%'
       },
-      inputContainer: {
-        display:'flex',
-        flexDirection: 'row',
-        marginBottom: 2,
-        padding:2,
-        borderBottomColor:'#919696',
-        borderBottomWidth:1.4,
-        height:50,
-      },
+      
       input: {
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
         height: 50,
         paddingHorizontal: 10,
         marginBottom: 10,
-        color: '#fff'
+        color: '#fff',        
+        color:'#A4A4A4'
       },input:{
         backgroundColor:'#fff',
         borderRadius:20,
         padding:8,
         paddingTop:5,
+        color:'#A4A4A4',
+        fontSize:16,
+        width:'90%',
+        marginLeft:10
       },
         inputIcon: {
           width: 31,
@@ -182,5 +189,24 @@ const styles=StyleSheet.create({
         borderWidth:1,
         borderRadius:21,
         padding:10
-      }
+      },
+      inputContainer: {
+        display:'flex',
+        flexDirection: 'row',
+        marginBottom: 2,
+        padding:2,
+        borderBottomColor:'#919696',
+        borderBottomWidth:1.4,
+        height:50,
+        color:'#A4A4A4'
+      },
+      inputpick: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+        width:'90%',
+        color:'#A4A4A4',
+     },
 })
