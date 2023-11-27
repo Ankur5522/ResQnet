@@ -5,6 +5,7 @@ import emailIcon from '../assets/email.png';
 import passwordIcon from '../assets/password.png';
 import googleLogo from '../assets/google.png';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { logIn } from '../api';
 
 const Login = ({route }) => {
   const [formData, setFormData] = useState({
@@ -71,7 +72,7 @@ const Login = ({route }) => {
             <Text style={styles.link}>Forgot Password</Text>
           </View>
 
-          <TouchableOpacity style={styles.loginButton} onPress={() => signin(formData)}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => logIn(formData)}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
           <Text style={styles.link2}>Or</Text>
