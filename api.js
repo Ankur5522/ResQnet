@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API = axios.create({
-	baseURL: 'http://192.168.29.26:5000',
+	baseURL: 'http://10.0.2.2:5000',
 })
 export const signUp = async (formData) => {
     try {

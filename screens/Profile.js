@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,12 +9,44 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome, MaterialIcons, Octicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Profile = () => {
+  const [profile, setProfile] = useState()
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const jsonProfile = await AsyncStorage.getItem('profile');
+        if (jsonProfile) {
+          const profile = JSON.parse(jsonProfile);
+          const existingProfile = profile.existingUser;
+          if (existingProfile && existingProfile?.name) {
+            const updatedProfile = { ...existingProfile, name: existingProfile.name.charAt(0).toUpperCase() + existingProfile.name.slice(1) };
+            setProfile(updatedProfile);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching or processing profile:', error);
+      }
+    };
+  
+    getProfile();
+  }, []);
+  
+  const handleSignOut = async (title) => {
+    if(title === "Sign Out") {
+      await AsyncStorage.removeItem('profile')
+      // navigation.navigate('Login')
+    }
+  }
+
   const OptionItem = ({ title, icon }) => {
     return (
-      <TouchableOpacity style={styles.optionItem}>
+      <TouchableOpacity style={styles.optionItem} onPress={handleSignOut(title)}>
         {icon}
         <Text style={styles.optionText}>{title}</Text>
       </TouchableOpacity>
@@ -28,7 +60,7 @@ const Profile = () => {
         <View style={styles.profileContainer}>
           <View style={styles.profileImg}></View>
           <Text style={{ fontSize: 22, fontWeight: "bold", marginTop: 12 }}>
-            Mitchel Barber
+            {profile?.name}
           </Text>
           <LinearGradient
             colors={["#2AF286BD", "#24F283D9", "#29E7A3F5", "#29E7A3"]}
@@ -37,14 +69,14 @@ const Profile = () => {
             end={{ x: 1, y: 0.5 }}
           >
             <Text style={{ fontSize: 22, color: "white", fontWeight: "bold" }}>
-              User/Volunteer
+               {profile?.type == "help" ? "User" : "Volunteer"}
             </Text>
           </LinearGradient>
           <View style={{ width: 260, display: "flex", alignItems: "center" }}>
             <Text
               style={{ fontSize: 18, marginTop: 12, fontWeight: "semibold" }}
             >
-              lorem epsum hi there description here
+              {profile?.description}
             </Text>
           </View>
         </View>
@@ -65,28 +97,8 @@ const Profile = () => {
             icon={<MaterialIcons name="settings" size={24} color="black" />}
           />
           <OptionItem
-            title="Chat"
-            icon={<Ionicons name="chatbox-outline" size={24} color="black" />}
-          />
-          <OptionItem
-            title="Help"
-            icon={<FontAwesome name="question-circle" size={24} color="black" />}
-          />
-          <OptionItem
-            title="Settings"
-            icon={<MaterialIcons name="settings" size={24} color="black" />}
-          />
-          <OptionItem
-            title="Chat"
-            icon={<Ionicons name="chatbox-outline" size={24} color="black" />}
-          />
-          <OptionItem
-            title="Help"
-            icon={<FontAwesome name="question-circle" size={24} color="black" />}
-          />
-          <OptionItem
-            title="Settings"
-            icon={<MaterialIcons name="settings" size={24} color="black" />}
+            title="Sign Out"
+            icon={<Octicons name="sign-out" size={24} color="black" />}
           />
         </ScrollView>
         </View>

@@ -27,7 +27,7 @@ const Login = ({route }) => {
 
   const handleLogin = async () => {
     const response = await logIn(formData)
-    await AsyncStorage.setItem('profile',JSON.stringify(formData))
+    await AsyncStorage.setItem('profile',JSON.stringify(response))
     navigation.navigate('Main')
   }
 
