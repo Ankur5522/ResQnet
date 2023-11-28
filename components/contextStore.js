@@ -69,7 +69,6 @@ export const AuthProvider = ({ children }) => {
 
     const signOut = async () => {
         try {
-            console.log("hi")
             await AsyncStorage.removeItem('profile');
             setUser(null);
         } catch (error) {
