@@ -4,7 +4,8 @@ import SplashScreen from "./components/splashScreen";
 import TabNavigator from "./components/tabNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppNavigator from "./components/screenNavigator";
-import Volunteer from "./screens/Volunteer.js";
+import Organisations from "./screens/Organisations.js";
+
 export default function App() {
   const [isAppReady, setAppReady] = useState(false);
   const [hasSeenSlides, setHasSeenSlides] = useState(false);
@@ -40,11 +41,12 @@ if (!isAppReady) {
 
 return (
   <NavigationContainer>
-    {(hasSeenSlides ? (
+    <Organisations />
+    {/* {(hasSeenSlides ? (
       <TabNavigator />
     ) : (
       <AppNavigator />
-    ))}
+    ))} */}
   </NavigationContainer>
 );
   

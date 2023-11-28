@@ -25,8 +25,8 @@ const Organisations = () => {
                 />
             </View>
             <TouchableOpacity style={styles.filterContainer} onPress={() => {setShowFilter(!showFilter)}}>
-                <FontAwesome5 name="filter" size={16} color="grey" />
-                <Text>Filter</Text>
+                <FontAwesome5 name="filter" size={16} color="grey"/>
+                <Text style={styles.filtertext}>Filter</Text>
             </TouchableOpacity>
             {showFilter && <Filter props={{filter, setFilter}}/>}
             <OrgSlide />
@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    },
+    filtertext:{
+        color:"#9DA3A3",
+        letterSpacing:0.7,
+        fontWeight:"500",
+        marginLeft:7
     },
     searchContainer: {
         width: "92%",
