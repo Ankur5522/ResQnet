@@ -9,18 +9,18 @@ const OrgSlide = () => {
         <View style={styles.container}>
             <View>
                 <View style={styles.avatar}>
-                    <MaterialCommunityIcons name={orgImg['hospital'].Icon} size={28} color="rgba(243, 97, 114, 0.76)" />
+                    <MaterialCommunityIcons name={orgImg['hospital'].Icon} size={35} color="rgba(83,137,242, 0.76)" />
                 </View>
             </View>
             <View style={styles.detailsContainer}>
                 <Text style={styles.name}>Naam hai</Text>
                 <Text style={styles.address}>Address hai</Text>
                 <View style={styles.phoneEmail}>
-                    <FontAwesome name="phone" size={18} color="rgba(95, 151, 151, 1)" />
+                    <MaterialIcons name="email" size={18} color= "#656565" />
                     <Text style={styles.phoneEmailText}>Email</Text>
                 </View>
                 <View style={styles.phoneEmail}>
-                    <MaterialIcons name="email" size={18} color="rgba(95, 151, 151, 1)" />
+                    <FontAwesome name="phone" size={18} color= "#656565" />                    
                     <Text style={styles.phoneEmailText}>Phone number</Text>
                 </View>
             </View>
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         width: "94%",
         height: 140,
-        backgroundColor: 'rgba(230,230,230,1)',
-        borderRadius: 15,
+        backgroundColor: '#fff',
+        borderRadius: 6,
         flexDirection: "row",
         padding: 12,
-        elevation: 4
+        elevation: 6
     },
     avatar: {
         height: 40,
@@ -53,15 +53,17 @@ const styles = StyleSheet.create({
         paddingLeft: 12
     },
     name: {
-        fontSize: 25,
+        fontSize: 23,
         fontWeight: "600",
-        color: "rgba(68, 68, 68, 1)"
+        color: "#444444",
+        letterSpacing:0.6
     },
     address: {
         fontSize: 15,
-        color: "grey",
+        color: "#8D8D8D",
         marginBottom: 5,
-        marginTop: 0
+        marginTop: 0,
+        letterSpacing:0.6
     },
     phoneEmail: {
         flexDirection: "row",
@@ -70,7 +72,8 @@ const styles = StyleSheet.create({
     },
     phoneEmailText: {
         marginLeft: 5,
-        color: "rgba(95, 151, 151, 1)",
-        fontWeight: "500"
+        color: "#656565",
+        fontWeight: "500",
+        letterSpacing:0.6
     }
 })

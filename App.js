@@ -4,7 +4,6 @@ import SplashScreen from './components/splashScreen';
 import TabNavigator from './components/tabNavigator';
 import AppNavigator from './components/screenNavigator';
 import { AuthProvider, useAuth } from './components/contextStore.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
  const [isAppReady, setAppReady] = useState(false);
