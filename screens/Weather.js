@@ -51,7 +51,6 @@ const Weather = () => {
     return <Text>Data being Fetch</Text>;
   }
   weatherParameters = weatherData?.list[0];
-  console.log(weatherData?.list)
   const {
     main: { temp, feels_like, temp_max, temp_min },
     weather,

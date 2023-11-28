@@ -5,10 +5,11 @@ import emailIcon from '../assets/email.png';
 import passwordIcon from '../assets/password.png';
 import googleLogo from '../assets/google.png';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { logIn } from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuth } from '../components/contextStore';
 
 const Login = ({route }) => {
+  const { logIn }  = useAuth()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
