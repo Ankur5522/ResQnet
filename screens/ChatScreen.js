@@ -22,10 +22,9 @@ const ChatScreen = () => {
     socket.on('newMessage', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
 
-      // Fetch sender name and update state
       fetchSenderName(message.senderId);
 
-      // Scroll to the bottom when a new message arrives
+
       flatListRef.current.scrollToEnd({ animated: true });
     });
 

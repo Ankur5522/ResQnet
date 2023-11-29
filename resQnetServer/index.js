@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv"
-import { getNameByUserId } from "./controllers/user.js";
+import { findUsers, getNameByUserId } from "./controllers/user.js";
 import { getUserIdByEmail } from "./controllers/user.js";
 import chatroute from "./Routes/chatRoute.js";
 import messageroute from "./Routes/messageRoute.js";
@@ -58,6 +58,7 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
       
 router.get('/getNameByUserId/:_id', getNameByUserId);
 router.get('/getUserIdByEmail/:email', getUserIdByEmail);
+router.get('/find-users', findUsers)
 
 app.use("/resQnetServer/chats",chatroute);
 app.use("/resQnetServer/messages",messageroute);
