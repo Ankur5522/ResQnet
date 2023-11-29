@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, FlatList, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import io from 'socket.io-client';
+import { endpoint } from '../env';
 
-const socket = io('http://10.0.2.2:6000');
+const apiEndpoint = endpoint
+const socket = io(`http://${apiEndpoint}:6000`);
 
 const ChatScreen = () => {
   const route = useRoute();
@@ -41,7 +43,7 @@ const ChatScreen = () => {
 
   const fetchChatMessages = async (chatId) => {
     try {
-      const response = await fetch(`http://10.0.2.2:5000/resQnetServer/messages/${chatId}`);
+      const response = await fetch(`http://${apiEndpoint}:5000/resQnetServer/messages/${chatId}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -60,7 +62,7 @@ const ChatScreen = () => {
 
   const fetchSenderName = async (senderId) => {
     try {
-      const response = await fetch(`http://10.0.2.2:5000/user/getNameByUserId/${senderId}`);
+      const response = await fetch(`http://${apiEndpoint}:5000/user/getNameByUserId/${senderId}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -75,7 +77,7 @@ const ChatScreen = () => {
 
   const handleSend = async () => {
     try {
-      const response = await fetch(`http://10.0.2.2:5000/resQnetServer/messages`, {
+      const response = await fetch(`http://${apiEndpoint}:5000/resQnetServer/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

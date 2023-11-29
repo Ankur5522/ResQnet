@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { endpoint } from "../env"
 
 const API = axios.create({
-    baseURL: "http://192.168.185.171:5000",
+    baseURL: `http://${endpoint}:5000`,
 });
 
 const AuthContext = createContext();

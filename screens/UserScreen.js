@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
+const apiEndpoint = "10.0.2.2"
+
 const UserScreen = ({ route }) => {
-  const { userId } = route.params;
+  const { userId } = route?.params;
 
   const [users, setUsers] = useState([]);
   const [joinedUsers, setJoinedUsers] = useState([]);
@@ -11,7 +13,7 @@ const UserScreen = ({ route }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://10.0.2.2:5000/user/find-users`);
+        const response = await fetch(`http://${apiEndpoint}:5000/user/find-users`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -30,7 +32,7 @@ const UserScreen = ({ route }) => {
 
   const handleJoinPress = async (selectedUserId) => {
     try {
-      const response = await fetch('http://10.0.2.2:5000/resQnetServer/chats', {
+      const response = await fetch(`http://${apiEndpoint}:5000/resQnetServer/chats`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

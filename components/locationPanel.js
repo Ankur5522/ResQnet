@@ -2,9 +2,9 @@ import React, {useState, useEffect} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import {
-    Ionicons,
-    MaterialIcons,
-  } from "@expo/vector-icons";
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 const LocationPanel = ({setLocation}) => {
     const [userLocation, setUserLocation] = useState(null);
@@ -17,8 +17,8 @@ const LocationPanel = ({setLocation}) => {
         setStatus(status);
         if (status === "granted") {
           const location = await Location.getCurrentPositionAsync({});
-          setLocation(location)
           setUserLocation(location);
+          typeof setLocation === 'function' ? setLocation(location) : null
           const reverseGeocode = await Location.reverseGeocodeAsync({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,

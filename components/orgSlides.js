@@ -4,7 +4,8 @@ import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { orgImg } from "../dataFile/orgImage";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const OrgSlide = () => {
+const OrgSlide = ({item}) => {
+    console.log(item)
     return (
         <View style={styles.container}>
             <View>
@@ -13,15 +14,15 @@ const OrgSlide = () => {
                 </View>
             </View>
             <View style={styles.detailsContainer}>
-                <Text style={styles.name}>Naam hai</Text>
-                <Text style={styles.address}>Address hai</Text>
+                <Text style={styles.name}>{item.orgName}</Text>
+                <Text style={styles.address}>{item.address},{item.city},{item.state}</Text>
                 <View style={styles.phoneEmail}>
                     <MaterialIcons name="email" size={18} color= "#656565" />
-                    <Text style={styles.phoneEmailText}>Email</Text>
+                    <Text style={styles.phoneEmailText}>{item.email}</Text>
                 </View>
                 <View style={styles.phoneEmail}>
                     <FontAwesome name="phone" size={18} color= "#656565" />                    
-                    <Text style={styles.phoneEmailText}>Phone number</Text>
+                    <Text style={styles.phoneEmailText}>{item.phoneNumber}</Text>
                 </View>
             </View>
         </View>

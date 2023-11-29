@@ -12,12 +12,14 @@ import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import { weatherType } from "../dataFile/weatherData";
 import LocationPanel from "../components/locationPanel";
+import axios from "axios";
 
 const Weather = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(null);
   const [weatherData, setWeatherData] = useState([]);
+  const [rainfall, setRainfall] = useState()
 
   const weatherBg = require('../assets/weatherBg.png')
 
@@ -47,6 +49,30 @@ const Weather = () => {
 
     fetchLocation();
   }, [status]);
+  useEffect(() => {
+    const predict = async () => {
+      try {
+        const response = await axios.post(
+          'http://10.0.2.2:7000/predict',
+          { 
+            features: {
+              "Temperature":20.120245,
+              "Relative Humidity":64.45718,
+              "Wind Speed": 10.365251,
+              "Wind Direction": 249.6768
+            }
+          }
+        );
+        const prediction = response.data.prediction;
+
+      } catch (error) {
+        console.error('Error fetching prediction:', error);
+      }
+    };
+    
+    predict();
+  },[weatherData])
+
   if (loading) {
     return <Text>Data being Fetch</Text>;
   }
@@ -78,7 +104,9 @@ const Weather = () => {
             />
           </View>
           </ImageBackground>
-          <View style={styles.secondContainer}></View>
+          <View style={styles.secondContainer}>
+            <Text>{rainfall}</Text>
+          </View>
           <View style={{width:"92%"}}>
             <Text style={{ fontSize: 22, fontWeight: 900, marginTop: 6, marginLeft: 20 }}>
               Early Warnings

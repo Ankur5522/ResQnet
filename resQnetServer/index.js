@@ -7,7 +7,7 @@ import { findUsers, getNameByUserId } from "./controllers/user.js";
 import { getUserIdByEmail } from "./controllers/user.js";
 import chatroute from "./Routes/chatRoute.js";
 import messageroute from "./Routes/messageRoute.js";
-import { continueSignup, login, signupOrganisation, signupUser } from "./controllers/user.js";
+import { continueSignup, login, signupOrganisation, signupUser, getOrganisations } from "./controllers/user.js";
 
 
 const app = express()
@@ -23,6 +23,7 @@ router.post('/login', login);
 router.post('/continue', continueSignup);
 router.post('/signup/user',signupUser)
 router.post('/signup/organisation',signupOrganisation)
+router.get('/organisations',getOrganisations)
 
 app.use('/user', router);
 

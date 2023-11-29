@@ -153,6 +153,18 @@ export const getNameByUserId = async (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
   };
+
+  export const getOrganisations = async (req, res) => {
+    console.log("hii")
+    try {
+      const organisations = await Organisation.find({}, '-password');
+  
+      res.status(200).json(organisations);
+    } catch (error) {
+      console.error("Error fetching organisations:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  };
   
 
   export const getUserIdByEmail = async (req, res) => {

@@ -9,6 +9,10 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { io } from "socket.io-client/dist/socket.io";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FontAwesome } from "@expo/vector-icons";
+import { endpoint } from "../env";
+
+const apiEndpoint = endpoint
 
 const Community = () => {
     const navigation = useNavigation();
@@ -20,7 +24,7 @@ const Community = () => {
         const fetchUserId = async () => {
             const profile = await AsyncStorage.getItem("profile");
             const profile1 = JSON.parse(profile);
-            fetch(`http://10.0.2.2:5000/user/getUserIdByEmail/${profile1.email}`)
+            fetch(`http://${apiEndpoint}:5000/user/getUserIdByEmail/${profile1.existingUser.email}`)
                 .then((response) => response.json())
                 .then((data) => {
                     setUserId(data.userId);
@@ -31,7 +35,7 @@ const Community = () => {
     }, []);
 
     useEffect(() => {
-        const newSocket = io("http://10.0.2.2:6000", {
+        const newSocket = io(`http://${apiEndpoint}:6000`, {
             transports: ["websocket"],
             jsonp: false,
             forceNew: true,
@@ -58,7 +62,7 @@ const Community = () => {
     
         const intervalId = setInterval(() => {
           fetchUserChats(userId);
-        }, 3000); 
+        }, 1000); 
     
         return () => {
           clearInterval(intervalId); 
@@ -68,9 +72,8 @@ const Community = () => {
     const fetchUserChats = async (userId) => {
         try {
             const response = await fetch(
-                `http://10.0.2.2:5000/resQnetServer/chats/${userId}`
+                `http://${apiEndpoint}:5000/resQnetServer/chats/${userId}`
             );
-
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -101,7 +104,7 @@ const Community = () => {
     const fetchUserName = async (userId) => {
         try {
             const response = await fetch(
-                `http://10.0.2.2:5000/user/getNameByUserId/${userId}`
+                `http://${apiEndpoint}:5000/user/getNameByUserId/${userId}`
             );
 
             if (!response.ok) {

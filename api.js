@@ -1,8 +1,9 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { endpoint } from './env';
 
 const API = axios.create({
-	baseURL: 'http://192.168.185.171:5000',
+	baseURL: `http://${endpoint}:5000`,
 })
 export const signUp = async (formData) => {
     try {
@@ -45,3 +46,13 @@ export const signupOrganisation = async (formData) => {
       console.error('Signin error:', error);
     }
   };
+
+  export const fetchOrganisations = async () => {
+    try {
+      const response = await API.get('/user/organisations')
+      const data = response?.data
+      return data;
+    } catch (error) {
+      console.log('organisations fetch error', error)
+    }
+  }
