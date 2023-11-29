@@ -6,7 +6,7 @@ import {
     MaterialIcons,
   } from "@expo/vector-icons";
 
-const LocationPanel = () => {
+const LocationPanel = ({setLocation}) => {
     const [userLocation, setUserLocation] = useState(null);
   const [locationName, setLocationName] = useState(null);
   const [status, setStatus] = useState(null);
@@ -17,6 +17,7 @@ const LocationPanel = () => {
         setStatus(status);
         if (status === "granted") {
           const location = await Location.getCurrentPositionAsync({});
+          setLocation(location)
           setUserLocation(location);
           const reverseGeocode = await Location.reverseGeocodeAsync({
             latitude: location.coords.latitude,
@@ -29,8 +30,7 @@ const LocationPanel = () => {
       } catch (error) {
         console.error("Error fetching location:", error);
       }
-    };
-
+    }
     fetchLocation();
   }, [status]);
     return (

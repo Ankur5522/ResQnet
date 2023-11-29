@@ -9,6 +9,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "extra": {
+      "eas": {
+        "projectId": "0a5e82f9-3adb-4433-bc91-24d20b9be5cb"
+      }
+    },
     "ios": {
       "supportsTablet": true
     },
