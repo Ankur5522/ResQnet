@@ -23,7 +23,7 @@ const Community = () => {
             fetch(`http://10.0.2.2:5000/user/getUserIdByEmail/${profile1.email}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    setUserId(data.userId);// This should log the userId
+                    setUserId(data.userId);
                 })
                 .catch((error) => console.error("Error fetching data:", error));
         };
@@ -52,6 +52,18 @@ const Community = () => {
     useEffect(() => {
         fetchUserChats(userId);
     }, [userId, socket]);
+
+    useEffect(() => {
+        fetchUserChats(userId);
+    
+        const intervalId = setInterval(() => {
+          fetchUserChats(userId);
+        }, 3000); 
+    
+        return () => {
+          clearInterval(intervalId); 
+        };
+      }, [userId, socket]);
 
     const fetchUserChats = async (userId) => {
         try {
@@ -118,8 +130,12 @@ const Community = () => {
         socket.emit("chatOpened", { chatId, senderId, receiverId });
     };
 
+    const handleUserPagePress = () => {
+        navigation.navigate('UserScreen', { userId }); 
+      };
+
     return (
-        <View>
+        <View style={styles.container}>
             {chatsWithReceiverNames.length === 0 ? (
                 <Text>No chats available</Text>
             ) : (
@@ -145,22 +161,40 @@ const Community = () => {
                     )}
                 />
             )}
+            <TouchableOpacity
+        style={styles.userPageButton}
+        onPress={handleUserPagePress}
+      >
+        <FontAwesome name="user" size={24} color="white" />
+      </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
     chatButton: {
-        backgroundColor: "#4A55A2",
-        padding: 15,
-        marginVertical: 8,
-        borderRadius: 10,
+      backgroundColor: '#4A55A2',
+      padding: 15,
+      marginVertical: 8,
+      borderRadius: 10,
     },
     chatButtonText: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
+      color: 'white',
+      fontSize: 16,
+      fontWeight: 'bold',
     },
-});
+    userPageButton: {
+      position: 'absolute',
+      bottom: 10,
+      right: 5,
+      backgroundColor: '#4A55A2',
+      padding: 15,
+      borderRadius: 10,
+    },
+    
+  });
 
 export default Community;

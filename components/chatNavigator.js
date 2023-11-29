@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ChatScreen from "../screens/ChatScreen";
 import Community from "../screens/Community";
+import UserScreen from "../screens/UserScreen";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,10 @@ const ChatNavigator = () => {
             <Stack.Screen
                 name="ChatScreen"
                 component={ChatScreen}
+            />
+             <Stack.Screen
+                name="UserScreen"
+                component={UserScreen}
             />
         </Stack.Navigator>
     );
