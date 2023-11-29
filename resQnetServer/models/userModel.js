@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  Description: {
+  description: {
     type: String,
   },
   type: {

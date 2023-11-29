@@ -49,7 +49,7 @@ export const signupUser = async (req, res) => {
         gender,
         age,
         aadharNumber,
-        Description,
+        description,
         type,
         skills
     } = req.body;
@@ -65,14 +65,14 @@ export const signupUser = async (req, res) => {
             gender,
             age,
             aadharNumber,
-            Description,
+            description,
             type,
             skills
         });
 
         res.status(200).json({
             name: userData.name,
-            description: userData.Description,
+            description: userData.description,
             type: userData.type,
             email: userData.email,
             phoneNumber: userData.phoneNumber,

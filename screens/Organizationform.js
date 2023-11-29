@@ -23,7 +23,7 @@ const Organizationform = ({route}) =>{
      const handleSignup = async () => {
         const newformData = {...res, ...formData}
         const response = await signupOrganisation(newformData)
-        await AsyncStorage('orgProfile',response)
+        await AsyncStorage.getItem('orgProfile',response)
         navigation.navigate('Login')
      }
     return(
